@@ -1,0 +1,22 @@
+# Python cache / compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.env/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Jupyter notebooks cache
+*.ipynb_checkpoints
+
+# Logs or temporary files
+*.log
+*.tmp
+
+# Ignore generated results (keep dataset/ tracked!)
+output/
