@@ -1,54 +1,31 @@
 import pandas as pd
-import numpy as np
 
-def load_cities(filename, n_cities=5, seed=42):
+def load_cities(dataset_path: str):
     """
-    Load dataset and assign random (x, y) coordinates to N cities.
-
+    Load cities from dataset CSV.
+    
     Parameters:
-        filename (str): Path to CSV dataset.
-        n_cities (int): Number of cities to select.
-        seed (int): Random seed for reproducibility.
+        dataset_path (str): Path to dataset (tiny.csv, small.csv, etc.)
 
     Returns:
-        pd.DataFrame: DataFrame with City and (x, y) coordinates.
+        DataFrame with columns: City, X, Y
     """
-    # Load dataset
-    df = pd.read_csv(filename)
+    # Read CSV with no headers, just X and Y per row
+    df = pd.read_csv(dataset_path, header=None, names=["X", "Y"])
 
-    # Assume first column contains location names
-    # dropping empty cells and taking unique values in account
-    city_names = df.iloc[:, 0].dropna().unique()
- 
-    # Ask user until valid input
-    # ValueError or StackOverFlowError
-    max_cities = len(city_names)
-    while True:
-        try:
-            n_cities = int(input(f"Enter number of cities to use (1–{max_cities}): "))
-            if 1 <= n_cities <= max_cities:
-                break
-            else:
-                print(f"Please enter a number between 1 and {max_cities}.")
-        except ValueError:
-            print("Invalid input. Please enter an integer.")
+    # Force numeric conversion (safeguard against string values)
+    df["X"] = pd.to_numeric(df["X"], errors="coerce")
+    df["Y"] = pd.to_numeric(df["Y"], errors="coerce")
 
-    # For easy reproducibility
-    np.random.seed(seed)
-    chosen_cities = np.random.choice(city_names, size=n_cities, replace=False)
+    # Add a City column as simple numbering
+    df.insert(0, "City", [f"City {i}" for i in range(len(df))])
 
-    # Generate synthetic random coordinates having range {0–100}x{0-100}
-    coords = np.random.randint(0, 100, size=(n_cities, 2))
+    # Make a pretty version of the table for printing
+    df_print = df.copy()
+    df_print["X"] = df_print["X"].round(4)
+    df_print["Y"] = df_print["Y"].round(4)
 
-    # Combine into DataFrame
-    city_df = pd.DataFrame({
-        "City": chosen_cities,
-        "X": coords[:, 0],
-        "Y": coords[:, 1]
-    })
+    print("\nLoaded cities from:", dataset_path)
+    print(df_print.to_string(index=False))
 
-    # Print table for clarity
-    print("\nSelected Cities with Coordinates:\n")
-    print(city_df.to_string(index=False))
-
-    return city_df
+    return df

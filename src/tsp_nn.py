@@ -1,12 +1,11 @@
-import matplotlib.pyplot as plt
-import networkx as nx
 import numpy as np
-from utils import load_cities
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
 def euclidean_distance(x1, y1, x2, y2):
     """Compute Euclidean distance between 2 points."""
-    return np.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+    return np.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 
 def tsp_nearest_neighbor(cities, start_index=0):
@@ -31,8 +30,10 @@ def tsp_nearest_neighbor(cities, start_index=0):
         nearest, min_dist = None, float("inf")
         for j in range(n):
             if not visited[j]:
-                d = euclidean_distance(cities.loc[current, "X"], cities.loc[current, "Y"],
-                                       cities.loc[j, "X"], cities.loc[j, "Y"])
+                d = euclidean_distance(
+                    cities.loc[current, "X"], cities.loc[current, "Y"],
+                    cities.loc[j, "X"], cities.loc[j, "Y"]
+                )
                 if d < min_dist:
                     nearest, min_dist = j, d
         tour.append(nearest)
@@ -41,14 +42,16 @@ def tsp_nearest_neighbor(cities, start_index=0):
         current = nearest
 
     # return to start
-    total_length += euclidean_distance(cities.loc[current, "X"], cities.loc[current, "Y"],
-                                       cities.loc[start_index, "X"], cities.loc[start_index, "Y"])
+    total_length += euclidean_distance(
+        cities.loc[current, "X"], cities.loc[current, "Y"],
+        cities.loc[start_index, "X"], cities.loc[start_index, "Y"]
+    )
     tour.append(start_index)
 
     return tour, total_length
 
 
-def plot_tour(cities, tour):
+def plot_tour(cities, tour, title="TSP Tour (Nearest Neighbor)"):
     """Plot TSP tour using NetworkX + Matplotlib."""
     G = nx.Graph()
 
@@ -64,22 +67,10 @@ def plot_tour(cities, tour):
     labels = nx.get_node_attributes(G, "label")
 
     plt.figure(figsize=(6, 6))
-    nx.draw(G, pos, with_labels=True, labels=labels, node_color="lightblue",
-            node_size=600, font_size=8, font_weight="bold", edge_color="gray")
-    plt.title("TSP Tour (Nearest Neighbor)")
+    nx.draw(
+        G, pos, with_labels=True, labels=labels,
+        node_color="lightblue", node_size=600,
+        font_size=8, font_weight="bold", edge_color="gray"
+    )
+    plt.title(title)
     plt.show()
-
-
-if __name__ == "__main__":
-    # Load dataset (user chooses number of cities)
-    cities = load_cities("dataset/Dataset_Generator_for_DTDC.csv")
-
-    # Run TSP Nearest Neighbor
-    tour, total_length = tsp_nearest_neighbor(cities)
-
-    # Print results
-    print("\nTour order (by city indices):", tour)
-    print("Tour length:", round(total_length, 2))
-
-    # Plot
-    plot_tour(cities, tour)  
