@@ -71,8 +71,8 @@ def plot_tour(cities, tour):
 
 
 if __name__ == "__main__":
-    # Load dataset with random coordinates
-    cities = load_cities("dataset/Dataset_Generator_for_DTDC.csv", n_cities=6)
+    # Load dataset (user chooses number of cities)
+    cities = load_cities("dataset/Dataset_Generator_for_DTDC.csv")
 
     # Run TSP Nearest Neighbor
     tour, total_length = tsp_nearest_neighbor(cities)
@@ -82,4 +82,4 @@ if __name__ == "__main__":
     print("Tour length:", round(total_length, 2))
 
     # Plot
-    plot_tour(cities, tour)
+    plot_tour(cities, tour)  
