@@ -1,11 +1,9 @@
-# Traveling Salesman Problem : Heuristic Approaches
+# Traveling Salesman Problem (Heuristic Approaches)
 
 This project implements and visualizes heuristic solutions to the **Traveling Salesman Problem (TSP)** using Python.  
 It focuses on practical, scalable methods such as **Nearest Neighbor**, **Nearest Fragment (multi-start NN)**, and **Local Improvement** heuristics like **2-opt** and **k-opt**.
 
 The goal is to balance **solution quality**, **runtime efficiency**, and **visual clarity**.
-
----
 
 ## Features
 
@@ -15,8 +13,6 @@ The goal is to balance **solution quality**, **runtime efficiency**, and **visua
 - **Visual Output:** Routes plotted via `NetworkX` + `Matplotlib`.
 - **Flexible Input:** Choose dataset size (`tiny.csv`, `small.csv`, `medium.csv`, `large.csv`).
 - **Interactive CLI:** Menu-driven interface for choosing heuristics and datasets.
-
----
 
 ## Project Structure
 
@@ -56,8 +52,6 @@ Required Libraries
 - `networkx`
 - `pandas`
 
----
-
 ## How to Run
 
 Run the program from the terminal or VS Code:
@@ -83,8 +77,6 @@ After execution:
 - The **tour** and its **total distance** are printed.
 - A **visual plot** of the route is displayed.
 
----
-
 ## Example Output
 
 ```
@@ -93,8 +85,6 @@ Tour length: 12.45
 ```
 
 And a neat plot of the tour will open showing the path connections.
-
----
 
 ## Future Extensions
 
