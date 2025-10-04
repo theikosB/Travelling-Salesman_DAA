@@ -1,11 +1,12 @@
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
+from utils import load_cities
 
 
 def euclidean_distance(x1, y1, x2, y2):
     """Compute Euclidean distance between 2 points."""
-    return np.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+    return np.sqrt((x1 - x2)**2 + (y1 - y2)**2)
 
 
 def tsp_nearest_neighbor(cities, start_index=0):
@@ -51,7 +52,30 @@ def tsp_nearest_neighbor(cities, start_index=0):
     return tour, total_length
 
 
-def plot_tour(cities, tour, title="TSP Tour (Nearest Neighbor)"):
+def tsp_nearest_fragment(cities):
+    """
+    Multi-start Nearest Neighbor (Nearest Fragment).
+    Runs NN from every city and picks the best tour.
+    
+    Parameters:
+        cities (DataFrame): City, X, Y
+    
+    Returns:
+        (best_tour, best_length)
+    """
+    best_length = float("inf")
+    best_tour = None
+
+    for start in range(len(cities)):
+        tour, total_length = tsp_nearest_neighbor(cities, start_index=start)
+        if total_length < best_length:
+            best_length = total_length
+            best_tour = tour
+
+    return best_tour, best_length
+
+
+def plot_tour(cities, tour, title="TSP Tour"):
     """Plot TSP tour using NetworkX + Matplotlib."""
     G = nx.Graph()
 
@@ -67,10 +91,7 @@ def plot_tour(cities, tour, title="TSP Tour (Nearest Neighbor)"):
     labels = nx.get_node_attributes(G, "label")
 
     plt.figure(figsize=(6, 6))
-    nx.draw(
-        G, pos, with_labels=True, labels=labels,
-        node_color="lightblue", node_size=600,
-        font_size=8, font_weight="bold", edge_color="gray"
-    )
+    nx.draw(G, pos, with_labels=True, labels=labels, node_color="lightblue",
+            node_size=600, font_size=8, font_weight="bold", edge_color="gray")
     plt.title(title)
     plt.show()
