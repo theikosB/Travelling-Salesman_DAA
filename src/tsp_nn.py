@@ -75,8 +75,11 @@ def tsp_nearest_fragment(cities):
     return best_tour, best_length
 
 
-def plot_tour(cities, tour, title="TSP Tour"):
-    """Plot TSP tour using NetworkX + Matplotlib."""
+import matplotlib.pyplot as plt
+import networkx as nx
+
+def plot_tour(cities, tour, total_length=None, title="TSP Tour"):
+    """Plot TSP tour using NetworkX + Matplotlib and overlay tour details."""
     G = nx.Graph()
 
     # Add nodes
@@ -90,8 +93,22 @@ def plot_tour(cities, tour, title="TSP Tour"):
     pos = nx.get_node_attributes(G, "pos")
     labels = nx.get_node_attributes(G, "label")
 
-    plt.figure(figsize=(6, 6))
-    nx.draw(G, pos, with_labels=True, labels=labels, node_color="lightblue",
-            node_size=600, font_size=8, font_weight="bold", edge_color="gray")
+    plt.figure(figsize=(7, 7))
+    nx.draw(
+        G, pos, with_labels=True, labels=labels,
+        node_color="lightblue", node_size=600,
+        font_size=8, font_weight="bold", edge_color="gray"
+    )
     plt.title(title)
+
+    # Add tour info text to the bottom-left corner of the plot
+    if total_length is not None:
+        text_info = f"Tour: {tour}\nTotal Length: {round(total_length, 2)}"
+        plt.gcf().text(
+            0.02, 0.02, text_info,
+            fontsize=8,
+            va='bottom', ha='left',
+            bbox=dict(facecolor='white', alpha=0.7, edgecolor='black')
+        )
+
     plt.show()

@@ -1,5 +1,19 @@
+import time
 from utils import load_cities
-from tsp_nn import tsp_nearest_neighbor, plot_tour
+from tsp_nn import tsp_nearest_neighbor, tsp_nearest_fragment, plot_tour
+from tsp_kopt import tsp_2opt, tsp_kopt
+
+def timed_run(fn, *args):
+    """
+    Run a function and print its execution time.
+    Parameters: the function to run, the arguments
+    Returns whatever the function returns.
+    """
+    start = time.time()
+    result = fn(*args)
+    end = time.time()
+    print(f"\nExecution time: {end - start:.4f} seconds")
+    return result
 
 def choose_dataset():
     """Menu to select dataset file."""
@@ -29,7 +43,8 @@ if __name__ == "__main__":
         print("\n==== Traveling Salesman Problem Heuristics ====")
         print("1. Nearest Neighbor Algorithm")
         print("2. Nearest Fragment (Multi Start) Operator")
-        # Later add: 3. 2-opt, 4.k-opt (Make them in the same program file tsp_kopt.py)
+        print("3. Pairwise Exchange (2-opt)")
+        print("4. (Inspired by) Lin–Kernighan heuristics")
         print("0. Exit")
 
         choice = input("Enter your choice: ")
@@ -39,11 +54,12 @@ if __name__ == "__main__":
             break
 
 
-        elif choice == "0":
+        elif choice == "1":
             dataset_path = choose_dataset()
             cities = load_cities(dataset_path)
 
-            tour, total_length = tsp_nearest_neighbor(cities)
+            tour, total_length = timed_run(tsp_nearest_neighbor, cities)
+
             print("\nTour order (by city indices):", tour)
             print("Tour length:", round(total_length, 2))
 
@@ -54,21 +70,37 @@ if __name__ == "__main__":
             dataset_path = choose_dataset()
             cities = load_cities(dataset_path)
 
-            tour, total_length = tsp_nearest_fragment(cities)
+            tour, total_length = timed_run(tsp_nearest_fragment, cities)
+            
             print("\nBest tour (multi-start NN):", tour)
             print("Best tour length:", round(total_length, 2))
-
             plot_tour(cities, tour, title="TSP Tour (Nearest Fragment)")
         
 
         elif choice == "3":
-            tour, total_length = tsp_nearest_fragment(cities)
-            improved_tour, improved_length = tsp_2opt(cities, tour)
+            dataset_path = choose_dataset()
+            cities = load_cities(dataset_path)
+
+            tour, total_length = tsp_nearest_neighbor(cities)
+            improved_tour, improved_length = timed_run(tsp_2opt, cities, tour)
+
+            print(f"Initial tour length (NN): {round(total_length, 2)}")
+            print(f"Improved tour length (2-Opt): {round(improved_length, 2)}")
+            plot_tour(cities, improved_tour)
 
 
         elif choice == "4":
-            tour, total_length = tsp_nearest_fragment(cities)
-            improved_tour, improved_length = tsp_kopt(cities, tour, k=3)
+            dataset_path = choose_dataset()
+            cities = load_cities(dataset_path)
+
+            tour, total_length = tsp_nearest_neighbor(cities)
+            k_value = int(input("Enter value of k for K-opt: "))
+            
+            improved_tour, improved_length = timed_run(tsp_kopt, cities, tour, k_value)
+
+            print(f"Initial tour length (NN): {round(total_length, 2)}")
+            print(f"Improved tour length (K-Opt, k=3): {round(improved_length, 2)}")
+            plot_tour(cities, improved_tour)
                         
 
         else:

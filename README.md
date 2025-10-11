@@ -9,7 +9,7 @@ The goal is to balance **solution quality**, **runtime efficiency**, and **visua
 
 - **Nearest Neighbor (NN):** Greedy TSP heuristic starting from one city.
 - **Nearest Fragment:** Runs NN from all starting points and returns the best path.
-- **2-opt & k-opt (coming soon):** Local search improvements to refine tours.
+- **Pairwise Exchange (2-opt) & k-opt:** Local search improvements to refine tours.
 - **Visual Output:** Routes plotted via `NetworkX` + `Matplotlib`.
 - **Flexible Input:** Choose dataset size (`tiny.csv`, `small.csv`, `medium.csv`, `large.csv`).
 - **Interactive CLI:** Menu-driven interface for choosing heuristics and datasets.
@@ -20,21 +20,25 @@ The goal is to balance **solution quality**, **runtime efficiency**, and **visua
 TSP-Project/
 │
 ├── dataset/
-│ ├── tiny.csv
-│ ├── small.csv
-│ ├── medium.csv
-│ └── large.csv
+│ ├── tiny.csv # Contains 10 Co-ords
+│ ├── small.csv # Contains 30 Co-ords
+│ ├── medium.csv # Contains 100 Co-ords
+│ └── large.csv # Contains 1000 Co-ords
 │
-├── tsp_nn.py # Nearest Neighbor + Nearest Fragment heuristics
-├── tsp_kopt.py # 2-opt and k-opt improvement algorithms
-├── utils.py # Data loading, validation, and helper functions
-├── main.py # Menu-driven interface for running heuristics
+├── output/
+│ ├── tsp_nn.py 
+│ ├── tsp_kopt.py 
+│ ├── utils.py 
+│ └── main.py 
 │
-├── requirements.txt # Required Python libraries
+├── src/
+│ ├── tsp_nn.py # NN and NF Algos
+│ ├── tsp_kopt.py # Pairwise and k-opt improv
+│ ├── utils.py # Data load, Helper funcs
+│ └── main.py # Main implementation
+├── requirements.txt # Reqd Python libraries
 └── README.md # Documentation
 ```
-
----
 
 ## Requirements
 
@@ -100,3 +104,7 @@ Planned improvements:
 
 - **Optimize** distance computations (e.g., memoization)
 
+
+### Authors: 
+- [_Daibik Barik_](https://github.com/theikosB) (BMAT2316)
+- [_Samadrita Bhattacharya_](https://github.com/Samadrita16) (BMAT2336)
