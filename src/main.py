@@ -16,24 +16,55 @@ def timed_run(fn, *args):
     return result, elapsed
 
 def choose_dataset():
-    """Menu to select dataset file."""
-    print("\nChoose a dataset:")
-    print("1. tiny.csv")
-    print("2. small.csv")
-    print("3. medium.csv")
-    print("4. large.csv")
+    """Unified menu to select dataset file (Real-world + Testing)."""
 
-    dataset_map = {
-        "1": "dataset/tiny.csv",
-        "2": "dataset/small.csv",
-        "3": "dataset/medium.csv",
-        "4": "dataset/large.csv"
+    real_map = {
+        "1": "dataset/UK_Cities.csv",
+        "2": "dataset/Britain open_pubs.csv",
+        "3": "dataset/Tourist places_Karnataka.csv"
+    }
+
+    test_map = {
+        "1": "dataset/Testing/tiny.csv",
+        "2": "dataset/Testing/small.csv",
+        "3": "dataset/Testing/medium.csv",
+        "4": "dataset/Testing/large.csv"
     }
 
     while True:
-        choice = input("Enter your choice: ")
-        if choice in dataset_map:
-            return dataset_map[choice]
+        print("\nChoose a dataset:")
+        print("1. UK_Cities.csv")
+        print("2. Britain open_pubs.csv")
+        print("3. Tourist places_Karnataka.csv")
+        print("4. Testing dataset (tiny, small, medium, large)")
+        print("0. Back to main menu")
+        main_choice = input("Enter your choice: ")
+
+        if main_choice in real_map:
+            return real_map[main_choice]
+
+        elif main_choice == "4":
+            # Submenu for Testing datasets
+            while True:
+                print("\nSelect Testing dataset:")
+                print("1. tiny.csv")
+                print("2. small.csv")
+                print("3. medium.csv")
+                print("4. large.csv")
+                print("0. Back")
+
+                sub_choice = input("Enter your choice: ")
+
+                if sub_choice in test_map:
+                    return test_map[sub_choice]
+                elif sub_choice == "0":
+                    break  # Return to the main dataset menu
+                else:
+                    print("Invalid choice. Please try again.")
+
+        elif main_choice == "0":
+            return None  # Go back to main menu
+
         else:
             print("Invalid choice. Please try again.")
 
@@ -56,9 +87,14 @@ if __name__ == "__main__":
 
         elif choice == "1":
             dataset_path = choose_dataset()
+            if dataset_path is None:
+                continue  # Go back to main algorithm menu
             cities = load_cities(dataset_path)
 
-            tour, total_length = timed_run(tsp_nearest_neighbor, cities)
+            tour, total_length, elapsed = None, None, None
+
+            result, elapsed = timed_run(tsp_nearest_neighbor, cities)
+            tour, total_length = result  # unpack the result from your tsp function
 
             print("\nTour order (by city indices):", tour)
             print("Tour length:", round(total_length, 2))
@@ -69,6 +105,8 @@ if __name__ == "__main__":
 
         elif choice == "2":
             dataset_path = choose_dataset()
+            if dataset_path is None:
+                continue  # Go back to main algorithm menu
             cities = load_cities(dataset_path)
 
             tour, total_length = timed_run(tsp_nearest_fragment, cities)
@@ -81,6 +119,8 @@ if __name__ == "__main__":
 
         elif choice == "3":
             dataset_path = choose_dataset()
+            if dataset_path is None:
+                continue  # Go back to main algorithm menu
             cities = load_cities(dataset_path)
 
             tour, total_length = tsp_nearest_neighbor(cities)
@@ -94,6 +134,8 @@ if __name__ == "__main__":
 
         elif choice == "4":
             dataset_path = choose_dataset()
+            if dataset_path is None:
+                continue  # Go back to main algorithm menu
             cities = load_cities(dataset_path)
 
             tour, total_length = tsp_nearest_neighbor(cities)
