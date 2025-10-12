@@ -12,8 +12,8 @@ def timed_run(fn, *args):
     start = time.time()
     result = fn(*args)
     end = time.time()
-    print(f"\nExecution time: {end - start:.4f} seconds")
-    return result
+    elapsed = end - start
+    return result, elapsed
 
 def choose_dataset():
     """Menu to select dataset file."""
@@ -62,6 +62,7 @@ if __name__ == "__main__":
 
             print("\nTour order (by city indices):", tour)
             print("Tour length:", round(total_length, 2))
+            print(f"Execution time: {elapsed:.4f} seconds")
 
             plot_tour(cities, tour, title="TSP Tour (Nearest Neighbor)")
 
@@ -74,6 +75,7 @@ if __name__ == "__main__":
             
             print("\nBest tour (multi-start NN):", tour)
             print("Best tour length:", round(total_length, 2))
+            print(f"Execution time: {elapsed:.4f} seconds")
             plot_tour(cities, tour, title="TSP Tour (Nearest Fragment)")
         
 
@@ -86,6 +88,7 @@ if __name__ == "__main__":
 
             print(f"Initial tour length (NN): {round(total_length, 2)}")
             print(f"Improved tour length (2-Opt): {round(improved_length, 2)}")
+            print(f"Execution time: {elapsed:.4f} seconds")
             plot_tour(cities, improved_tour)
 
 
@@ -100,6 +103,7 @@ if __name__ == "__main__":
 
             print(f"Initial tour length (NN): {round(total_length, 2)}")
             print(f"Improved tour length (K-Opt, k=3): {round(improved_length, 2)}")
+            print(f"Execution time: {elapsed:.4f} seconds")
             plot_tour(cities, improved_tour)
                         
 

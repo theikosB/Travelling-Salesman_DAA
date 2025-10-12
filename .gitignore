@@ -19,4 +19,4 @@ Thumbs.db
 *.tmp
 
 # Ignore generated results (keep dataset/ tracked!)
-output/
+# output/
