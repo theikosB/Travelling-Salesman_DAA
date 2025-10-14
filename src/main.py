@@ -1,6 +1,6 @@
 import time
-from utils import load_cities
-from tsp_nn import tsp_nearest_neighbor, tsp_nearest_fragment, plot_tour
+from utils import load_cities, plot_tour
+from tsp_nn import tsp_nearest_neighbor, tsp_nearest_fragment
 from tsp_kopt import tsp_2opt, tsp_kopt
 
 def timed_run(fn, *args):
@@ -19,8 +19,9 @@ def choose_dataset():
     """Unified menu to select dataset file (Real-world + Testing)."""
 
     real_map = {
+        
         "1": "dataset/UK_Cities.csv",
-        "2": "dataset/Britain open_pubs.csv",
+        "2": "dataset/England open_pubs.csv",
         "3": "dataset/Tourist places_Karnataka.csv"
     }
 
@@ -34,7 +35,7 @@ def choose_dataset():
     while True:
         print("\nChoose a dataset:")
         print("1. UK_Cities.csv")
-        print("2. Britain open_pubs.csv")
+        print("2. England open_pubs.csv")
         print("3. Tourist places_Karnataka.csv")
         print("4. Testing dataset (tiny, small, medium, large)")
         print("0. Back to main menu")
@@ -109,7 +110,10 @@ if __name__ == "__main__":
                 continue  # Go back to main algorithm menu
             cities = load_cities(dataset_path)
 
-            tour, total_length = timed_run(tsp_nearest_fragment, cities)
+            tour, total_length, elapsed = None, None, None
+
+            result, elapsed = timed_run(tsp_nearest_fragment, cities)
+            tour, total_length = result  # unpack the result from your tsp function
             
             print("\nBest tour (multi-start NN):", tour)
             print("Best tour length:", round(total_length, 2))
@@ -123,8 +127,12 @@ if __name__ == "__main__":
                 continue  # Go back to main algorithm menu
             cities = load_cities(dataset_path)
 
-            tour, total_length = tsp_nearest_neighbor(cities)
-            improved_tour, improved_length = timed_run(tsp_2opt, cities, tour)
+            # Measure NN time
+            (tour, total_length), elapsed_nn = timed_run(tsp_nearest_neighbor, cities)
+            # Measure 2-opt time
+            (improved_tour, improved_length), elapsed_opt = timed_run(tsp_2opt, cities, tour)
+
+            total_elapsed = elapsed_nn + elapsed_opt
 
             print(f"Initial tour length (NN): {round(total_length, 2)}")
             print(f"Improved tour length (2-Opt): {round(improved_length, 2)}")
@@ -138,10 +146,14 @@ if __name__ == "__main__":
                 continue  # Go back to main algorithm menu
             cities = load_cities(dataset_path)
 
-            tour, total_length = tsp_nearest_neighbor(cities)
+            # Measure NN time
+            (tour, total_length), elapsed_nn = timed_run(tsp_nearest_neighbor, cities)
+
+            # Measure K-opt time
             k_value = int(input("Enter value of k for K-opt: "))
-            
-            improved_tour, improved_length = timed_run(tsp_kopt, cities, tour, k_value)
+            (improved_tour, improved_length), elapsed_opt = timed_run(tsp_kopt, cities, tour, k_value)
+
+            total_elapsed = elapsed_nn + elapsed_opt
 
             print(f"Initial tour length (NN): {round(total_length, 2)}")
             print(f"Improved tour length (K-Opt, k=3): {round(improved_length, 2)}")

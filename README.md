@@ -20,24 +20,27 @@ The goal is to balance **solution quality**, **runtime efficiency**, and **visua
 TSP-Project/
 │
 ├── dataset/
-│ ├── tiny.csv # Contains 10 Co-ords
-│ ├── small.csv # Contains 30 Co-ords
-│ ├── medium.csv # Contains 100 Co-ords
-│ └── large.csv # Contains 1000 Co-ords
+│   ├── UK_Cities.csv
+│   ├── Tourist places in Karnataka.xlsx
+│   ├── Britain open_pubs.xlsx
+│   └── Testing/
+│       ├── tiny.csv
+│       ├── small.csv
+│       ├── medium.csv
+│       └── large.csv
 │
-├── output/
-│ ├── tsp_nn.py 
-│ ├── tsp_kopt.py 
-│ ├── utils.py 
-│ └── main.py 
+├── output/                                 # Generated tours, plots & results
 │
 ├── src/
-│ ├── tsp_nn.py # NN and NF Algos
-│ ├── tsp_kopt.py # Pairwise and k-opt improv
-│ ├── utils.py # Data load, Helper funcs
-│ └── main.py # Main implementation
-├── requirements.txt # Reqd Python libraries
-└── README.md # Documentation
+│   ├── tsp_nn.py
+│   ├── tsp_kopt.py
+│   ├── utils.py
+│   └── main.py
+│
+├── .gitignore                              # Ignore unnecessary files
+├── LICENSE                                 # License info (e.g., MIT)
+├── requirements.txt                        # Python dependencies
+└── README.md                               # Project documentation
 ```
 
 ## Requirements
