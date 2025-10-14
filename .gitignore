@@ -24,3 +24,4 @@ Thumbs.db
 # Ignore the test scripts
 dataset/Testing/test.py
 dataset/test2.py
+dataset/test3.py

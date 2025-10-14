@@ -1,7 +1,7 @@
 import time
 from utils import load_cities, plot_tour
 from tsp_nn import tsp_nearest_neighbor, tsp_nearest_fragment
-from tsp_kopt import tsp_2opt, tsp_kopt
+from tsp_kopt import tsp_kopt
 
 def timed_run(fn, *args):
     """
@@ -130,13 +130,14 @@ if __name__ == "__main__":
             # Measure NN time
             (tour, total_length), elapsed_nn = timed_run(tsp_nearest_neighbor, cities)
             # Measure 2-opt time
-            (improved_tour, improved_length), elapsed_opt = timed_run(tsp_2opt, cities, tour)
+            (improved_tour, improved_length), elapsed_opt = timed_run(tsp_kopt, cities, tour)
 
             total_elapsed = elapsed_nn + elapsed_opt
 
+            print("\nImproved tour (2-opt):", improved_tour)
             print(f"Initial tour length (NN): {round(total_length, 2)}")
             print(f"Improved tour length (2-Opt): {round(improved_length, 2)}")
-            print(f"Execution time: {elapsed:.4f} seconds")
+            print(f"Execution time: {total_elapsed:.4f} seconds")
             plot_tour(cities, improved_tour)
 
 
@@ -148,18 +149,18 @@ if __name__ == "__main__":
 
             # Measure NN time
             (tour, total_length), elapsed_nn = timed_run(tsp_nearest_neighbor, cities)
-
             # Measure K-opt time
-            k_value = int(input("Enter value of k for K-opt: "))
+            k_value = int(input("\nEnter value of k for K-opt: "))
             (improved_tour, improved_length), elapsed_opt = timed_run(tsp_kopt, cities, tour, k_value)
 
             total_elapsed = elapsed_nn + elapsed_opt
 
+            print(f"\nImproved tour ({k_value}-opt): {improved_tour}")
             print(f"Initial tour length (NN): {round(total_length, 2)}")
             print(f"Improved tour length (K-Opt, k=3): {round(improved_length, 2)}")
-            print(f"Execution time: {elapsed:.4f} seconds")
+            print(f"Execution time: {total_elapsed:.4f} seconds")
             plot_tour(cities, improved_tour)
                         
 
         else:
-            print("Invalid choice. Please try again.")
+            print("\nInvalid choice. Please try again.")

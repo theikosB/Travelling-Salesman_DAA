@@ -21,6 +21,7 @@ def load_cities(dataset_path: str):
     df["X"] = pd.to_numeric(df["X"], errors="coerce")
     df["Y"] = pd.to_numeric(df["Y"], errors="coerce")
 
+    '''
     # Create a copy for pretty printing
     df_print = df.copy()
     df_print["X"] = df_print["X"].round(4)
@@ -28,6 +29,7 @@ def load_cities(dataset_path: str):
 
     print("\nLoaded cities from:", dataset_path)
     print(df_print.to_string(index=False))
+    '''
 
     return df
 
