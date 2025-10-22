@@ -1,0 +1,21 @@
+## tiny_tour
+
+Improved tour (2-opt): [0, 3, 4, 9, 6, 7, 2, 8, 1, 5, 0]
+Initial tour length (NN): 15.34
+Improved tour length (2-Opt): 13.35
+Execution time: 0.0162 seconds
+
+
+## small_tour
+
+Improved tour (2-opt): [0, 29, 22, 9, 6, 19, 13, 4, 20, 28, 3, 7, 25, 15, 21, 16, 17, 8, 12, 24, 27, 10, 11, 18, 5, 23, 2, 14, 26, 1, 0]
+Initial tour length (NN): 66.79
+Improved tour length (2-Opt): 63.71
+Execution time: 1.0764 seconds
+
+## medium_tour
+
+Improved tour (2-opt): [0, 35, 21, 99, 98, 94, 30, 19, 56, 66, 23, 48, 24, 32, 28, 89, 31, 47, 36, 50, 8, 85, 10, 2, 61, 17, 84, 81, 18, 20, 87, 73, 38, 14, 65, 40, 52, 76, 92, 58, 64, 70, 33, 34, 15, 9, 49, 90, 4, 13, 95, 44, 83, 68, 42, 37, 12, 27, 54, 88, 63, 55, 1, 43, 79, 11, 78, 5, 57, 16, 60, 97, 77, 53, 82, 45, 69, 46, 71, 75, 3, 74, 59, 7, 80, 91, 22, 62, 26, 51, 39, 93, 96, 6, 72, 25, 29, 86, 67, 41, 0]
+Initial tour length (NN): 9.69
+Improved tour length (2-Opt): 8.65
+Execution time: 180.4433 seconds

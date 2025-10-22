@@ -1,0 +1,31 @@
+## tiny_tour
+
+>>> Enter value of k for K-opt: 3
+
+Improved tour (3-opt): [0, 3, 4, 9, 6, 7, 2, 8, 1, 5, 0]
+Initial tour length (NN): 15.34
+Improved tour length (K-Opt, k=3): 13.35
+Execution time: 0.0119 seconds
+
+
+## small_tour
+
+>>> Enter value of k for K-opt: 3
+
+Improved tour (3-opt): [0, 19, 6, 9, 29, 22, 20, 13, 4, 28, 3, 7, 25, 15, 21, 16, 17, 8, 24, 12, 27, 10, 11, 18, 5, 23, 2, 14, 26, 1, 0]
+Initial tour length (NN): 66.79
+Improved tour length (K-Opt, k=3): 65.27
+Execution time: 0.7431 seconds
+
+## medium_tour
+
+>>> Enter value of k for K-opt: 3
+
+Improved tour (3-opt): [0, 35, 99, 21, 98, 94, 30, 19, 56, 66, 23, 48, 24, 32, 28, 89, 31, 47, 36, 50, 8, 85, 10, 2, 17, 61, 84, 81, 18, 20, 87, 73, 38, 14, 65, 40, 52, 76, 92, 64, 58, 33, 70, 34, 15, 9, 49, 90, 4, 13, 95, 44, 83, 68, 42, 37, 12, 27, 54, 88, 63, 55, 1, 43, 79, 11, 78, 5, 57, 16, 60, 97, 77, 53, 82, 45, 69, 46, 71, 75, 3, 74, 59, 7, 80, 91, 22, 62, 26, 51, 39, 93, 96, 6, 72, 25, 86, 29, 67, 41, 0]
+Initial tour length (NN): 9.69
+Improved tour length (K-Opt, k=3): 8.85
+Execution time: 108.2641 seconds
+
+## large_tour
+
+>>> 
