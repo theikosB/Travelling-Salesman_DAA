@@ -28,4 +28,5 @@ Execution time: 108.2641 seconds
 
 ## large_tour
 
->>> 
+>>> Enter value of k for K-opt: 5
+(Done separately, used in graph.py)

@@ -19,3 +19,6 @@ Improved tour (2-opt): [0, 35, 21, 99, 98, 94, 30, 19, 56, 66, 23, 48, 24, 32, 2
 Initial tour length (NN): 9.69
 Improved tour length (2-Opt): 8.65
 Execution time: 180.4433 seconds
+
+## large_tour
+(Done separately, used in graph.py)
